@@ -31,12 +31,16 @@ public sealed class RecaptchaVerifier(HttpClient httpClient, IConfiguration conf
             return false;
         }
 
-        using var content = new FormUrlEncodedContent(new Dictionary<string, string>
+        var formValues = new Dictionary<string, string>
         {
             ["secret"] = _options.SecretKey,
-            ["response"] = token,
-            ["remoteip"] = remoteIp?.ToString() ?? string.Empty
-        });
+            ["response"] = token
+        };
+        if (remoteIp is not null)
+        {
+            formValues["remoteip"] = remoteIp.ToString();
+        }
+        using var content = new FormUrlEncodedContent(formValues);
         using var response = await httpClient.PostAsync(
             "https://www.google.com/recaptcha/api/siteverify",
             content,

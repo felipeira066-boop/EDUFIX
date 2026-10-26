@@ -142,8 +142,12 @@ if (authForm) {
         } catch (error) {
             console.error("A solicitação de autenticação falhou.", error);
             showMessage("Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.");
+            if (captchaWidgetId !== undefined) {
+                window.grecaptcha.reset(captchaWidgetId);
+                captchaToken.value = "";
+            }
         } finally {
-            submitButton.disabled = false;
+            submitButton.disabled = !captchaToken.value;
             submitButton.textContent = submitLabel;
         }
     });

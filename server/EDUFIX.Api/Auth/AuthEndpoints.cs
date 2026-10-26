@@ -21,11 +21,12 @@ public static class AuthEndpoints
         group.MapGet("/captcha-config", (IOptions<RecaptchaOptions> options) =>
         {
             var captcha = options.Value;
+            var configured = !string.IsNullOrWhiteSpace(captcha.SiteKey) &&
+                             !string.IsNullOrWhiteSpace(captcha.SecretKey);
             return Results.Ok(new
             {
-                enabled = !string.IsNullOrWhiteSpace(captcha.SiteKey) &&
-                          !string.IsNullOrWhiteSpace(captcha.SecretKey),
-                siteKey = captcha.SiteKey
+                enabled = configured,
+                siteKey = configured ? captcha.SiteKey : null
             });
         });
         group.MapGet("/me", (Delegate)GetSessionAsync).RequireAuthorization();

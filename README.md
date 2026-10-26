@@ -35,13 +35,28 @@ Em produção, configure `ASPNETCORE_ALLOWEDHOSTS` com o domínio da aplicação
 
 - `POST /api/auth/register`: cria uma conta e inicia a sessão.
 - `POST /api/auth/login`: verifica e-mail e senha e inicia a sessão.
+- `GET /api/auth/captcha-config`: informa a chave pública do CAPTCHA para a página de autenticação.
 - `GET /api/auth/me`: retorna a conta da sessão atual e o plano escolar escolhido.
 - `POST /api/auth/logout`: encerra a sessão.
 - `PUT /api/study/plan`: grava a etapa escolar `EF1`, `EF2` ou `EM`.
 - `GET /api/study/courses`: retorna somente as matérias da etapa escolar da conta.
 - `GET /inicio`: encaminha a pessoa autenticada à escolha do plano ou às matérias.
 - `GET /plano.html` e `GET /materias.html`: páginas privadas servidas pelo servidor somente para contas autenticadas.
+- `GET /loja.html`: loja privada de itens e passe de estudos.
+- `GET /api/shop/`: consulta saldo de moedas, catálogo e inventário.
+- `POST /api/shop/purchase`: resgata um item do catálogo usando moedas da conta.
 - `GET /api/health`: indica se a aplicação está executando e se há uma connection string configurada.
+
+As páginas de login e cadastro exigem Google reCAPTCHA v2. Configure as chaves do seu domínio no ambiente do servidor antes de aceitar autenticações:
+
+```powershell
+$env:Captcha__SiteKey = "sua-chave-publica"
+$env:Captcha__SecretKey = "sua-chave-secreta"
+```
+
+Sem as duas chaves, autenticação falha de forma fechada e a interface informa que o CAPTCHA ainda precisa ser configurado. Nunca exponha a chave secreta no navegador ou no repositório.
+
+Novas contas recebem 500 moedas iniciais. A loja permite resgatar skins, vidas extras e itens de XP em dobro; saldo e inventário são persistidos no SQL Server. O passe de estudos aparece na loja com os benefícios planejados (vidas ilimitadas e sem anúncios), mas pagamentos ainda não estão integrados e o botão permanece desativado: nenhum pagamento ou benefício premium é simulado. Os espaços identificados como anúncios são apenas placeholders, sem scripts de terceiros ou publicidade ativa, até a escolha e configuração de um provedor.
 
 As senhas são armazenadas como hashes gerados pelo hasher do ASP.NET Core Identity, nunca em texto aberto. O servidor usa SQL parametrizado, cookie de sessão `HttpOnly` com `Secure` e `SameSite=Strict`, e limita tentativas nos endpoints de autenticação. Não coloque credenciais da base de dados no repositório; configure-as pelo ambiente ou por um gerenciador de segredos.
 

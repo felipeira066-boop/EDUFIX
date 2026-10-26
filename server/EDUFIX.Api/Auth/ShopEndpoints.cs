@@ -20,6 +20,10 @@ public static class ShopEndpoints
             .GetRequiredService<IWebHostEnvironment>()
             .ContentRootPath, "PrivatePages");
 
+        endpoints.MapGet("/loja.html", () =>
+            Results.File(Path.Combine(privatePages, "loja.html"), "text/html; charset=utf-8"))
+            .RequireAuthorization();
+
         var shopApi = endpoints.MapGroup("/api/shop").RequireAuthorization();
         shopApi.MapGet("/", GetStateAsync);
         shopApi.MapPost("/purchase", PurchaseAsync)

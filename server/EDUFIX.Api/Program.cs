@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
+builder.Services.Configure<RecaptchaOptions>(builder.Configuration.GetSection("Captcha"));
 builder.Services.AddSingleton<UserStore>();
 builder.Services.AddSingleton<ShopStore>();
 builder.Services.AddSingleton<IPasswordHasher<UserAccount>, PasswordHasher<UserAccount>>();

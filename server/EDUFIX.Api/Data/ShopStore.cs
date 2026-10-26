@@ -70,7 +70,8 @@ public sealed class ShopStore(IConfiguration configuration)
     {
         await using var connection = new SqlConnection(GetConnectionString());
         await connection.OpenAsync(cancellationToken);
-        await using var transaction = (SqlTransaction)await connection.BeginTransactionAsync(cancellationToken);
+        await using var transaction = (SqlTransaction)await connection.BeginTransactionAsync(
+            IsolationLevel.Serializable, cancellationToken);
 
         await using var debit = new SqlCommand(
             """
