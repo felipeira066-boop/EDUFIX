@@ -1,0 +1,34 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "sqlproj: Build EDUFIX",
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"${workspaceFolder}\\EDUFIX\\EDUFIX.sqlproj"
+			],
+			"problemMatcher": "$sqlproj-problem-matcher",
+			"group": {
+				"kind": "build"
+			},
+			"detail": "Builds the EDUFIX SQL project"
+		},
+		{
+			"label": "EDUFIX: build API",
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"${workspaceFolder}\\server\\EDUFIX.Api\\Edufix.Api.csproj"
+			],
+			"problemMatcher": "$msCompile",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "Builds the API used for login and the study pages."
+		}
+	]
+}

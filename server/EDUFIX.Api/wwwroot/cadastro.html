@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f8f1">
+    <meta name="description" content="Crie sua conta EDUFIX e comece sua jornada de estudos.">
+    <title>Criar conta — EDUFIX</title>
+    <link rel="stylesheet" href="/auth.css">
+    <script src="/auth.js" defer></script>
+</head>
+<body class="auth-page">
+    <header class="auth-header">
+        <a class="brand" href="/" aria-label="EDUFIX — página inicial">
+            <span class="brand-mark" aria-hidden="true">✳</span>
+            <span>EDUFIX</span>
+        </a>
+        <a class="back-link" href="/">Voltar ao início</a>
+    </header>
+
+    <main class="auth-main">
+        <section class="auth-card" aria-labelledby="auth-title">
+            <span class="auth-illustration" aria-hidden="true">🧭</span>
+            <p class="eyebrow">Sua jornada começa aqui</p>
+            <h1 id="auth-title">Crie sua conta</h1>
+            <p class="auth-intro">Um passo de cada vez, no seu ritmo.</p>
+
+            <form class="auth-form" data-auth-form data-auth-mode="register">
+                <label for="display-name">Como podemos chamar você?</label>
+                <input
+                    id="display-name"
+                    name="displayName"
+                    type="text"
+                    autocomplete="name"
+                    maxlength="80"
+                    placeholder="Seu nome"
+                    required>
+
+                <label for="email">E-mail</label>
+                <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    inputmode="email"
+                    maxlength="254"
+                    placeholder="voce@exemplo.com"
+                    required>
+
+                <label for="password">Crie uma senha</label>
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autocomplete="new-password"
+                    minlength="12"
+                    maxlength="128"
+                    aria-describedby="password-hint"
+                    placeholder="Pelo menos 12 caracteres"
+                    required>
+                <span class="field-hint" id="password-hint">Use de 12 a 128 caracteres.</span>
+
+                <div class="captcha-field" data-captcha-container aria-label="Verificação de segurança"></div>
+                <input type="hidden" name="captchaToken" data-captcha-token>
+                <p class="form-message" data-form-message role="alert" aria-live="assertive" hidden></p>
+                <button class="submit-button" type="submit" data-submit-button>Criar conta</button>
+            </form>
+
+            <p class="auth-switch">Já tem uma conta? <a href="/login.html">Entre</a></p>
+            <p class="auth-footnote">Sua senha é protegida e nunca é armazenada em texto aberto.</p>
+        </section>
+    </main>
+</body>
+</html>

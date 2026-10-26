@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f8f1">
+    <meta name="description" content="Veja suas matérias e explore sua jornada de estudos no EDUFIX.">
+    <title>Minhas matérias — EDUFIX</title>
+    <link rel="stylesheet" href="/study.css">
+    <script src="/study.js" defer></script>
+</head>
+<body class="study-page">
+    <header class="study-header">
+        <a class="study-brand" href="/" aria-label="EDUFIX — página inicial">
+            <span class="brand-mark" aria-hidden="true">✳</span>
+            <span>EDUFIX</span>
+        </a>
+        <nav class="study-nav" aria-label="Sua conta">
+            <a class="study-nav-link" href="/loja.html">Loja</a>
+            <a class="study-nav-link" href="/plano.html">Trocar plano</a>
+            <span class="study-user" id="study-user"></span>
+            <button class="study-logout" type="button" id="logout-button">Sair</button>
+        </nav>
+    </header>
+
+    <main class="study-main subjects-main">
+        <section class="welcome-banner">
+            <div>
+                <p class="study-kicker">SUA PRÓXIMA DESCOBERTA COMEÇA AQUI</p>
+                <h1 id="welcome-title">Estas são as suas matérias</h1>
+                <p class="welcome-copy" id="plan-label">Um passo de cada vez, no seu ritmo.</p>
+            </div>
+            <span class="welcome-illustration" aria-hidden="true">🦉</span>
+        </section>
+
+        <div class="subject-heading">
+            <div>
+                <p class="study-kicker">SEU PLANO DE ESTUDOS</p>
+                <h2>Escolha uma matéria para explorar</h2>
+            </div>
+            <span class="subject-count" id="subject-count"></span>
+        </div>
+
+        <p class="study-message" id="subjects-message" role="status" aria-live="polite" hidden></p>
+        <section class="subjects-grid" id="subjects-grid" aria-label="Suas matérias"></section>
+
+        <aside class="coming-soon-banner">
+            <span aria-hidden="true">🌱</span>
+            <p><strong>Sua jornada está começando.</strong> Estamos preparando conceitos e exercícios interativos para as próximas etapas.</p>
+        </aside>
+
+        <aside class="ad-slot study-ad-slot" data-ad-slot aria-label="Espaço reservado para anúncio">
+            <span aria-hidden="true">📢</span>
+            <div><strong>Espaço de anúncio</strong><p>Os anúncios serão exibidos aqui quando um provedor for configurado.</p></div>
+        </aside>
+    </main>
+</body>
+</html>

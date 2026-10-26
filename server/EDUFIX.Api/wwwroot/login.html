@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f8f1">
+    <meta name="description" content="Entre na sua conta EDUFIX para continuar sua jornada de estudos.">
+    <title>Entrar — EDUFIX</title>
+    <link rel="stylesheet" href="/auth.css">
+    <script src="/auth.js" defer></script>
+</head>
+<body class="auth-page">
+    <header class="auth-header">
+        <a class="brand" href="/" aria-label="EDUFIX — página inicial">
+            <span class="brand-mark" aria-hidden="true">✳</span>
+            <span>EDUFIX</span>
+        </a>
+        <a class="back-link" href="/">Voltar ao início</a>
+    </header>
+
+    <main class="auth-main">
+        <section class="auth-card" aria-labelledby="auth-title">
+            <span class="auth-illustration" aria-hidden="true">🦦</span>
+            <p class="eyebrow">Que bom ter você de volta!</p>
+            <h1 id="auth-title">Entre na sua conta</h1>
+            <p class="auth-intro">Continue aprendendo de onde você parou.</p>
+
+            <form class="auth-form" data-auth-form data-auth-mode="login">
+                <label for="email">E-mail</label>
+                <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    inputmode="email"
+                    maxlength="254"
+                    placeholder="voce@exemplo.com"
+                    required>
+
+                <label for="password">Senha</label>
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autocomplete="current-password"
+                    maxlength="128"
+                    placeholder="Sua senha"
+                    required>
+
+                <div class="captcha-field" data-captcha-container aria-label="Verificação de segurança"></div>
+                <input type="hidden" name="captchaToken" data-captcha-token>
+                <p class="form-message" data-form-message role="alert" aria-live="assertive" hidden></p>
+                <button class="submit-button" type="submit" data-submit-button>Entrar</button>
+            </form>
+
+            <p class="auth-switch">Ainda não tem conta? <a href="/cadastro.html">Crie a sua</a></p>
+            <p class="auth-footnote">Seus dados são usados apenas para proteger sua conta e seu progresso.</p>
+        </section>
+    </main>
+</body>
+</html>

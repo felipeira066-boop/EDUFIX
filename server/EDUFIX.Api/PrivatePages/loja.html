@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f8f1">
+    <meta name="description" content="Troque suas moedas por itens para sua jornada de estudos.">
+    <title>Loja — EDUFIX</title>
+    <link rel="stylesheet" href="/study.css">
+    <link rel="stylesheet" href="/shop.css">
+    <script src="/shop.js" defer></script>
+</head>
+<body class="study-page">
+    <header class="study-header">
+        <a class="study-brand" href="/" aria-label="EDUFIX — página inicial">
+            <span class="brand-mark" aria-hidden="true">✳</span>
+            <span>EDUFIX</span>
+        </a>
+        <nav class="study-nav" aria-label="Sua conta">
+            <a class="study-nav-link" href="/materias.html">Minhas matérias</a>
+            <span class="study-user" id="shop-user"></span>
+            <button class="study-logout" type="button" id="logout-button">Sair</button>
+        </nav>
+    </header>
+
+    <main class="study-main shop-main">
+        <a class="back-link" href="/materias.html">← Voltar às matérias</a>
+        <section class="shop-hero">
+            <div>
+                <p class="study-kicker">RECOMPENSAS PARA SUA JORNADA</p>
+                <h1>Loja EDUFIX</h1>
+                <p>Use suas moedas para personalizar sua experiência e guardar itens para depois.</p>
+            </div>
+            <div class="coin-wallet" aria-live="polite">
+                <span aria-hidden="true">🪙</span>
+                <strong id="coin-balance">—</strong>
+                <span>moedas</span>
+            </div>
+        </section>
+
+        <p class="shop-message" id="shop-message" role="status" aria-live="polite" hidden></p>
+        <section class="shop-section" aria-labelledby="items-title">
+            <div class="shop-heading">
+                <div>
+                    <p class="study-kicker">ITENS DO JOGO</p>
+                    <h2 id="items-title">Escolha sua próxima vantagem</h2>
+                </div>
+            </div>
+            <div class="shop-grid" id="shop-grid"></div>
+        </section>
+
+        <section class="pass-card" aria-labelledby="pass-title">
+            <div class="pass-icon" aria-hidden="true">🎓</div>
+            <div class="pass-copy">
+                <p class="study-kicker">PASSE DE ESTUDOS</p>
+                <h2 id="pass-title">Estude sem interrupções</h2>
+                <p>O passe pago oferecerá vidas ilimitadas e acesso sem anúncios. A cobrança ainda não está habilitada nesta versão.</p>
+            </div>
+            <button class="pass-button" type="button" disabled>Pagamentos em configuração</button>
+        </section>
+
+        <section class="inventory-section" aria-labelledby="inventory-title">
+            <p class="study-kicker">SEUS ITENS</p>
+            <h2 id="inventory-title">Inventário</h2>
+            <div class="inventory-list" id="inventory-list"></div>
+        </section>
+
+        <aside class="ad-slot" data-ad-slot aria-label="Espaço reservado para anúncio">
+            <span aria-hidden="true">📢</span>
+            <div><strong>Espaço de anúncio</strong><p>Os anúncios serão exibidos aqui quando um provedor for configurado.</p></div>
+        </aside>
+    </main>
+</body>
+</html>

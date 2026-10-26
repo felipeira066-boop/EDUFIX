@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f8f1">
+    <meta name="description" content="Escolha seu plano escolar para personalizar suas matérias no EDUFIX.">
+    <title>Escolha seu plano — EDUFIX</title>
+    <link rel="stylesheet" href="/study.css">
+    <script src="/plan.js" defer></script>
+</head>
+<body class="study-page">
+    <header class="study-header">
+        <a class="study-brand" href="/" aria-label="EDUFIX — página inicial">
+            <span class="brand-mark" aria-hidden="true">✳</span>
+            <span>EDUFIX</span>
+        </a>
+        <a class="study-nav-link" href="/">Página inicial</a>
+    </header>
+
+    <main class="study-main plan-main">
+        <a class="back-link" href="/inicio">← Voltar à minha jornada</a>
+        <section class="plan-intro" aria-labelledby="plan-title">
+            <span class="study-emoji" aria-hidden="true">🧭</span>
+            <p class="study-kicker">Vamos encontrar seu caminho</p>
+            <h1 id="plan-title">Qual etapa escolar combina com você?</h1>
+            <p>Escolha sua etapa para encontrar matérias e conteúdos do seu nível. Você pode ajustar seu ponto de partida depois.</p>
+        </section>
+
+        <form class="plan-form" id="plan-form">
+            <fieldset class="plan-options">
+                <legend class="visually-hidden">Etapa escolar</legend>
+                <label class="plan-option">
+                    <input type="radio" name="gradeBand" value="EF1" required>
+                    <span class="plan-icon" aria-hidden="true">🌱</span>
+                    <span class="plan-option-copy">
+                        <strong>Ensino Fundamental I</strong>
+                        <span>1º ao 5º ano</span>
+                    </span>
+                    <span class="plan-check" aria-hidden="true">✓</span>
+                </label>
+                <label class="plan-option">
+                    <input type="radio" name="gradeBand" value="EF2" required>
+                    <span class="plan-icon" aria-hidden="true">🌿</span>
+                    <span class="plan-option-copy">
+                        <strong>Ensino Fundamental II</strong>
+                        <span>6º ao 9º ano</span>
+                    </span>
+                    <span class="plan-check" aria-hidden="true">✓</span>
+                </label>
+                <label class="plan-option">
+                    <input type="radio" name="gradeBand" value="EM" required>
+                    <span class="plan-icon" aria-hidden="true">🚀</span>
+                    <span class="plan-option-copy">
+                        <strong>Ensino Médio</strong>
+                        <span>1º ao 3º ano</span>
+                    </span>
+                    <span class="plan-check" aria-hidden="true">✓</span>
+                </label>
+            </fieldset>
+
+            <p class="study-message" data-study-message role="alert" aria-live="assertive" hidden></p>
+            <button class="study-button" type="submit" data-submit-button>Ver minhas matérias</button>
+        </form>
+
+        <p class="study-footnote">Esta escolha organiza seu plano de estudos. Seu ponto de partida poderá ser ajustado para levar em conta o que você já sabe.</p>
+    </main>
+</body>
+</html>
