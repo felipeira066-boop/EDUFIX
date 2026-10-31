@@ -14,12 +14,10 @@ public sealed record UserAccount(
 public sealed record RegisterRequest(
     string? DisplayName,
     string? Email,
-    string? Password,
-    string? CaptchaToken);
+    string? Password);
 
 public sealed record LoginRequest(
     string? Email,
-    string? Password,
-    string? CaptchaToken);
+    string? Password);
 
 public sealed record PlanSelectionRequest(string? GradeBand);

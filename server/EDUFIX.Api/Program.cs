@@ -10,14 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
-builder.Services.Configure<RecaptchaOptions>(builder.Configuration.GetSection("Captcha"));
 builder.Services.AddSingleton<UserStore>();
 builder.Services.AddSingleton<ShopStore>();
 builder.Services.AddSingleton<IPasswordHasher<UserAccount>, PasswordHasher<UserAccount>>();
-builder.Services.AddHttpClient<RecaptchaVerifier>(client =>
-{
-    client.Timeout = TimeSpan.FromSeconds(8);
-});
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -83,9 +78,7 @@ app.Use(async (context, next) =>
     }
 
     context.Response.Headers["Content-Security-Policy"] =
-        "default-src 'self'; script-src 'self' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; " +
-        "connect-src 'self' https://www.google.com/recaptcha/ https://www.google.com; " +
-        "frame-src https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; " +
+        "default-src 'self'; script-src 'self'; connect-src 'self'; frame-src 'self'; " +
         "style-src 'self'; img-src 'self' data:; " +
         "object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'";
 

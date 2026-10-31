@@ -7,7 +7,9 @@
     <meta name="description" content="Crie sua conta EDUFIX e comece sua jornada de estudos.">
     <title>Criar conta — EDUFIX</title>
     <link rel="stylesheet" href="/auth.css">
+    <link rel="stylesheet" href="/motion.css">
     <script src="/auth.js" defer></script>
+    <script src="/motion.js" defer></script>
 </head>
 <body class="auth-page">
     <header class="auth-header">
@@ -60,8 +62,6 @@
                     required>
                 <span class="field-hint" id="password-hint">Use de 12 a 128 caracteres.</span>
 
-                <div class="captcha-field" data-captcha-container aria-label="Verificação de segurança"></div>
-                <input type="hidden" name="captchaToken" data-captcha-token>
                 <p class="form-message" data-form-message role="alert" aria-live="assertive" hidden></p>
                 <button class="submit-button" type="submit" data-submit-button>Criar conta</button>
             </form>

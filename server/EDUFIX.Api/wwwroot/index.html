@@ -19,6 +19,10 @@
                 <a href="#como-funciona">Como funciona</a>
                 <a href="#cursos">Cursos</a>
                 <a href="#mascotes">Mascotes</a>
+                <button class="settings-trigger" id="settings-trigger" type="button" aria-haspopup="dialog" aria-controls="settings-dialog" aria-label="Abrir configurações">
+                    <span aria-hidden="true">⚙</span>
+                    <span class="settings-trigger-label">Configurações</span>
+                </button>
                 <a href="/login.html">Entrar</a>
                 <a class="button button-small" href="/cadastro.html">Criar conta</a>
                 <a class="button button-small study-link" href="/inicio">Minha jornada</a>
@@ -287,6 +291,62 @@
             <span>Uma ideia para aprender junto.</span>
         </div>
     </footer>
+    <dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+        <div class="settings-panel">
+            <div class="settings-heading">
+                <div>
+                    <p class="settings-eyebrow">Seu espaço, seu jeito</p>
+                    <h2 id="settings-title">Configurações</h2>
+                    <p>Personalize sua experiência de estudo.</p>
+                </div>
+                <button class="settings-close" id="settings-close" type="button" aria-label="Fechar configurações">×</button>
+            </div>
+            <div class="settings-content">
+                <fieldset class="setting-group">
+                    <legend>Aparência</legend>
+                    <p class="setting-description">Escolha como você prefere ver o EDUFIX.</p>
+                    <div class="theme-options">
+                        <label class="theme-option">
+                            <input type="radio" name="theme" value="light">
+                            <span class="theme-option-icon" aria-hidden="true">☀</span>
+                            <span>Claro</span>
+                        </label>
+                        <label class="theme-option">
+                            <input type="radio" name="theme" value="dark">
+                            <span class="theme-option-icon" aria-hidden="true">☾</span>
+                            <span>Noturno</span>
+                        </label>
+                        <label class="theme-option">
+                            <input type="radio" name="theme" value="system">
+                            <span class="theme-option-icon" aria-hidden="true">◐</span>
+                            <span>Sistema</span>
+                        </label>
+                    </div>
+                </fieldset>
+                <fieldset class="setting-group">
+                    <legend>Tamanho do texto</legend>
+                    <div class="text-size-options" role="group" aria-label="Tamanho do texto">
+                        <button type="button" data-font-size="small" aria-pressed="false">Pequeno</button>
+                        <button type="button" data-font-size="normal" aria-pressed="true">Padrão</button>
+                        <button type="button" data-font-size="large" aria-pressed="false">Grande</button>
+                    </div>
+                </fieldset>
+                <div class="setting-row">
+                    <div>
+                        <span class="setting-label">Animações</span>
+                        <p class="setting-description">Movimentos suaves pela página</p>
+                    </div>
+                    <label class="switch-control">
+                        <input id="motion-setting" type="checkbox" checked>
+                        <span class="switch-slider" aria-hidden="true"></span>
+                        <span class="visually-hidden">Ativar animações</span>
+                    </label>
+                </div>
+                <button class="settings-reset" id="settings-reset" type="button">Restaurar configurações padrão</button>
+                <p class="settings-status" id="settings-status" role="status" aria-live="polite"></p>
+            </div>
+        </div>
+    </dialog>
     <script src="/script.js" defer></script>
 </body>
 </html>

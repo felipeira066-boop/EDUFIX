@@ -1,10 +1,6 @@
 @baseUrl = https://localhost:7180
 @sessionCookie = __Host-edufix.auth=replace-with-your-session-cookie
 
-### Public CAPTCHA configuration
-GET {{baseUrl}}/api/auth/captcha-config
-Accept: application/json
-
 ### Private shop page (requires an authenticated browser session)
 GET {{baseUrl}}/loja.html
 Cookie: {{sessionCookie}}

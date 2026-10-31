@@ -175,23 +175,6 @@ h1 {
     font-size: .75rem;
 }
 
-.captcha-field {
-    min-height: 78px;
-    margin-top: 8px;
-}
-
-.captcha-field[data-state="error"]::before {
-    display: block;
-    padding: 12px;
-    border: 1px solid #ecd9b1;
-    border-radius: 10px;
-    background: #fff9ea;
-    color: #765b22;
-    content: attr(data-message);
-    font-size: .78rem;
-    line-height: 1.5;
-}
-
 .submit-button {
     min-height: 48px;
     margin-top: 12px;
@@ -209,9 +192,12 @@ h1 {
 }
 
 .submit-button:hover:not(:disabled) {
-    transform: translateY(-2px);
     background: var(--green-dark);
     box-shadow: 0 6px 0 #124b3a;
+}
+
+.submit-button:hover:not(:disabled) {
+    transform: translateY(-2px);
 }
 
 .submit-button:disabled {
@@ -282,4 +268,5 @@ h1 {
     *::after {
         transition-duration: .01ms !important;
     }
+
 }

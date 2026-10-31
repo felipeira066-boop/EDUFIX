@@ -7,7 +7,9 @@
     <meta name="description" content="Entre na sua conta EDUFIX para continuar sua jornada de estudos.">
     <title>Entrar — EDUFIX</title>
     <link rel="stylesheet" href="/auth.css">
+    <link rel="stylesheet" href="/motion.css">
     <script src="/auth.js" defer></script>
+    <script src="/motion.js" defer></script>
 </head>
 <body class="auth-page">
     <header class="auth-header">
@@ -47,8 +49,6 @@
                     placeholder="Sua senha"
                     required>
 
-                <div class="captcha-field" data-captcha-container aria-label="Verificação de segurança"></div>
-                <input type="hidden" name="captchaToken" data-captcha-token>
                 <p class="form-message" data-form-message role="alert" aria-live="assertive" hidden></p>
                 <button class="submit-button" type="submit" data-submit-button>Entrar</button>
             </form>

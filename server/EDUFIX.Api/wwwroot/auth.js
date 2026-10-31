@@ -6,63 +6,6 @@ if (authForm) {
     const mode = authForm.dataset.authMode;
     const endpoint = mode === "register" ? "/api/auth/register" : "/api/auth/login";
     const submitLabel = submitButton.textContent;
-    const captchaContainer = authForm.querySelector("[data-captcha-container]");
-    const captchaToken = authForm.querySelector("[data-captcha-token]");
-    let captchaWidgetId;
-
-    const configureCaptcha = async () => {
-        submitButton.disabled = true;
-        try {
-            const response = await fetch("/api/auth/captcha-config", { credentials: "same-origin" });
-            if (!response.ok) {
-                throw new Error(`A configuração do CAPTCHA não pôde ser carregada (HTTP ${response.status}).`);
-            }
-
-            const config = await response.json();
-            if (!config.enabled || !config.siteKey) {
-                captchaContainer.dataset.state = "error";
-                captchaContainer.dataset.message = "O CAPTCHA ainda não está configurado. Defina as chaves do Google reCAPTCHA no servidor.";
-                return;
-            }
-
-            await new Promise((resolve, reject) => {
-                if (window.grecaptcha?.render) {
-                    resolve();
-                    return;
-                }
-                const script = document.createElement("script");
-                script.src = "https://www.google.com/recaptcha/api.js?render=explicit";
-                script.async = true;
-                script.defer = true;
-                script.onload = resolve;
-                script.onerror = () => reject(new Error("Não foi possível carregar o Google reCAPTCHA."));
-                document.head.append(script);
-            });
-
-            captchaWidgetId = window.grecaptcha.render(captchaContainer, {
-                sitekey: config.siteKey,
-                callback: (token) => {
-                    captchaToken.value = token;
-                    submitButton.disabled = false;
-                    captchaContainer.removeAttribute("data-state");
-                    message.hidden = true;
-                },
-                "expired-callback": () => {
-                    captchaToken.value = "";
-                    submitButton.disabled = true;
-                },
-                "error-callback": () => {
-                    captchaToken.value = "";
-                    submitButton.disabled = true;
-                    showMessage("Não foi possível carregar a verificação. Atualize a página e tente novamente.");
-                }
-            });
-        } catch (error) {
-            console.error("Não foi possível preparar o CAPTCHA.", error);
-            captchaContainer.dataset.state = "error";
-            captchaContainer.dataset.message = "A verificação de segurança está indisponível. Atualize a página e tente novamente.";
-        }
-    };
 
     const showMessage = (text, isSuccess = false) => {
         message.textContent = text;
@@ -107,11 +50,6 @@ if (authForm) {
             return;
         }
 
-        if (!captchaToken.value) {
-            showMessage("Confirme a verificação de segurança para continuar.");
-            return;
-        }
-
         const formData = new FormData(authForm);
         const payload = Object.fromEntries(formData.entries());
         submitButton.disabled = true;
@@ -129,11 +67,6 @@ if (authForm) {
 
             if (!response.ok) {
                 showMessage(describeFailure(body, response.status));
-                if (captchaWidgetId !== undefined) {
-                    window.grecaptcha.reset(captchaWidgetId);
-                    captchaToken.value = "";
-                    submitButton.disabled = true;
-                }
                 return;
             }
 
@@ -142,17 +75,11 @@ if (authForm) {
         } catch (error) {
             console.error("A solicitação de autenticação falhou.", error);
             showMessage("Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.");
-            if (captchaWidgetId !== undefined) {
-                window.grecaptcha.reset(captchaWidgetId);
-                captchaToken.value = "";
-            }
         } finally {
-            submitButton.disabled = !captchaToken.value;
+            submitButton.disabled = false;
             submitButton.textContent = submitLabel;
         }
     });
-
-    configureCaptcha();
 
     fetch("/api/auth/me", { credentials: "same-origin" })
         .then(async (response) => {

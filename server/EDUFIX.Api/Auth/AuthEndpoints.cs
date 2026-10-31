@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Options;
 
 namespace Edufix.Api.Auth;
 
@@ -18,17 +17,6 @@ public static class AuthEndpoints
 
         group.MapPost("/register", (Delegate)RegisterAsync).RequireRateLimiting("auth");
         group.MapPost("/login", (Delegate)LoginAsync).RequireRateLimiting("auth");
-        group.MapGet("/captcha-config", (IOptions<RecaptchaOptions> options) =>
-        {
-            var captcha = options.Value;
-            var configured = !string.IsNullOrWhiteSpace(captcha.SiteKey) &&
-                             !string.IsNullOrWhiteSpace(captcha.SecretKey);
-            return Results.Ok(new
-            {
-                enabled = configured,
-                siteKey = configured ? captcha.SiteKey : null
-            });
-        });
         group.MapGet("/me", (Delegate)GetSessionAsync).RequireAuthorization();
         group.MapPost("/logout", (Delegate)LogoutAsync)
             .RequireAuthorization()
@@ -41,17 +29,8 @@ public static class AuthEndpoints
         RegisterRequest request,
         UserStore store,
         IPasswordHasher<UserAccount> passwordHasher,
-        RecaptchaVerifier recaptcha,
-        ILoggerFactory loggerFactory,
         HttpContext context)
     {
-        var captchaResult = await VerifyCaptchaAsync(
-            recaptcha, request.CaptchaToken, context, loggerFactory, context.RequestAborted);
-        if (captchaResult is not null)
-        {
-            return captchaResult;
-        }
-
         var displayName = request.DisplayName?.Trim();
         var email = request.Email?.Trim();
         var password = request.Password;
@@ -121,17 +100,8 @@ public static class AuthEndpoints
         LoginRequest request,
         UserStore store,
         IPasswordHasher<UserAccount> passwordHasher,
-        RecaptchaVerifier recaptcha,
-        ILoggerFactory loggerFactory,
         HttpContext context)
     {
-        var captchaResult = await VerifyCaptchaAsync(
-            recaptcha, request.CaptchaToken, context, loggerFactory, context.RequestAborted);
-        if (captchaResult is not null)
-        {
-            return captchaResult;
-        }
-
         var email = request.Email?.Trim();
         var password = request.Password;
 
@@ -237,46 +207,4 @@ public static class AuthEndpoints
             title: "Banco de dados não configurado.",
             detail: "Configure ConnectionStrings__EdufixDb e aplique o esquema SQL antes de usar o cadastro ou login.");
 
-    private static async Task<IResult?> VerifyCaptchaAsync(
-        RecaptchaVerifier recaptcha,
-        string? token,
-        HttpContext context,
-        ILoggerFactory loggerFactory,
-        CancellationToken cancellationToken)
-    {
-        if (!recaptcha.IsConfigured)
-        {
-            return Results.Problem(
-                statusCode: StatusCodes.Status503ServiceUnavailable,
-                title: "CAPTCHA não configurado.",
-                detail: "Configure Captcha__SiteKey e Captcha__SecretKey antes de habilitar o login.");
-        }
-
-        if (string.IsNullOrWhiteSpace(token))
-        {
-            return Results.ValidationProblem(new Dictionary<string, string[]>
-            {
-                ["captchaToken"] = ["Confirme que você não é um robô."]
-            });
-        }
-
-        try
-        {
-            return await recaptcha.VerifyAsync(token, context.Request.Host.Host, context.Connection.RemoteIpAddress, cancellationToken)
-                ? null
-                : Results.ValidationProblem(new Dictionary<string, string[]>
-                {
-                    ["captchaToken"] = ["A confirmação do CAPTCHA expirou ou é inválida. Tente novamente."]
-                });
-        }
-        catch (HttpRequestException exception)
-        {
-            loggerFactory.CreateLogger("RecaptchaVerifier")
-                .LogError(exception, "Não foi possível validar o CAPTCHA com o Google reCAPTCHA.");
-            return Results.Problem(
-                statusCode: StatusCodes.Status503ServiceUnavailable,
-                title: "Verificação temporariamente indisponível.",
-                detail: "Não foi possível validar o CAPTCHA. Tente novamente em instantes.");
-        }
-    }
 }
