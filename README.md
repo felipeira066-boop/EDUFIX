@@ -7,9 +7,12 @@ EDUFIX é uma plataforma de estudos em português, com páginas estáticas, logi
 O projeto EDUFIX usa o Supabase `kubdkgtxaabkdakopytu`. A URL e a chave **publishable** ficam em `site/supabase-client.js`; a chave publishable é pública e pode ser usada no navegador. Nunca coloque uma chave `service_role`, senha de banco ou segredo SMTP em arquivos do site.
 
 1. No painel do Supabase, abra **SQL Editor** e execute uma vez todo o arquivo `supabase/migrations/20261101000000_initial_schema.sql`. Ele cria perfil, inventário, políticas RLS, o perfil inicial de cada nova conta e a função transacional de compra.
-2. Em **Authentication → URL Configuration**, defina o domínio publicado como **Site URL** e adicione à lista de redirecionamentos permitidos:
-   - `https://SEU-DOMINIO/redefinir-senha.html`
-   - `http://localhost:5500/redefinir-senha.html` para desenvolvimento local.
+2. Em **Authentication → URL Configuration**, defina a URL do site publicado como **Site URL** (por exemplo, `https://SEU-DOMINIO`) e adicione à lista de redirecionamentos permitidos:
+   - `https://SEU-DOMINIO/login.html` para confirmação de cadastro.
+   - `https://SEU-DOMINIO/redefinir-senha.html` para redefinição de senha.
+   - `http://localhost:5500/login.html` e `http://localhost:5500/redefinir-senha.html` para desenvolvimento local.
+
+   O cadastro informa explicitamente ao Supabase que o link de confirmação deve retornar à página de login no mesmo domínio em que a conta foi criada. Ao abrir o link, o Supabase valida a confirmação; se também criar uma sessão, o site abre a jornada automaticamente. Não é necessário criar uma página de confirmação separada. Links enviados antes dessa configuração não mudam: solicite um novo e-mail de confirmação depois de publicar.
 3. Crie uma conta nova pela página `cadastro.html`. Contas e senhas anteriores do SQL Server não são migradas; crie sua conta de administrador novamente.
 4. Para enviar e-mails de confirmação e recuperação a usuários reais, configure um SMTP próprio em **Authentication → SMTP Settings**. O serviço de e-mail padrão do Supabase é limitado para testes.
 
