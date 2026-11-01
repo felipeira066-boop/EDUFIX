@@ -447,6 +447,7 @@ p {
     border: 1px solid var(--study-line);
     border-radius: 18px;
     background: var(--study-paper);
+    cursor: pointer;
     transition: transform .16s ease, box-shadow .16s ease;
 }
 
@@ -458,8 +459,18 @@ p {
 .subject-card-top {
     display: flex;
     align-items: center;
-    gap: 12px;
     margin-bottom: 13px;
+}
+
+.subject-open {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 12px;
+}
+
+.subject-open:hover h3 {
+    color: var(--study-green);
 }
 
 .subject-icon {
@@ -519,10 +530,30 @@ p {
 }
 
 .subject-status {
-    margin: 7px 0 0;
+    margin: 7px 0 8px;
     color: #879188;
     font-size: .72rem;
     font-weight: 650;
+}
+
+.subject-launch {
+    display: inline-flex;
+    min-height: 39px;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    padding: 8px 12px;
+    border-radius: 11px;
+    background: #e8f1e5;
+    color: var(--study-green-dark);
+    font-size: .78rem;
+    font-weight: 800;
+    transition: background .16s ease, color .16s ease;
+}
+
+.subject-launch:hover {
+    background: var(--study-green);
+    color: white;
 }
 
 .coming-soon-banner {

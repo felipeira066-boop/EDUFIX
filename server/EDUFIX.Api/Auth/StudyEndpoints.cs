@@ -103,6 +103,31 @@ public static class StudyEndpoints
                 : Results.File(Path.Combine(privatePages, "materias.html"), "text/html; charset=utf-8");
         }).RequireAuthorization();
 
+        endpoints.MapGet("/jogo.html", async (
+            ClaimsPrincipal principal,
+            UserStore userStore,
+            HttpContext context) =>
+        {
+            var user = await GetSignedInUserAsync(principal, userStore, context.RequestAborted);
+            if (user is null)
+            {
+                return Results.Unauthorized();
+            }
+
+            if (user.GradeBand is null || !Subjects.TryGetValue(user.GradeBand, out var availableSubjects))
+            {
+                return Results.Redirect("/plano.html");
+            }
+
+            var subjectId = context.Request.Query["materia"].ToString();
+            if (!availableSubjects.Any(subject => subject.Id.Equals(subjectId, StringComparison.Ordinal)))
+            {
+                return Results.NotFound();
+            }
+
+            return Results.File(Path.Combine(privatePages, "jogo.html"), "text/html; charset=utf-8");
+        }).RequireAuthorization();
+
         var studyApi = endpoints.MapGroup("/api/study").RequireAuthorization();
         studyApi.MapPut("/plan", SavePlanAsync).RequireRateLimiting("auth");
         studyApi.MapGet("/courses", GetCoursesAsync);

@@ -12,11 +12,10 @@ The application uses ASP.NET Core on .NET 10, SQL Server, and plain HTML, CSS, a
 - Match CI with `dotnet build .\server\EDUFIX.Api\Edufix.Api.csproj --configuration Release --warnaserror -p:NuGetAuditLevel=moderate`.
 - Build the SQL database project separately with `dotnet build .\EDUFIX\EDUFIX.sqlproj`. This produces a DACPAC; it does not publish or update a database.
 - Run the site and API together with `dotnet run --project .\server\EDUFIX.Api\Edufix.Api.csproj`. Set `ConnectionStrings__EdufixDb` in the environment for database-backed features. The VS Code launch configuration `EDUFIX: run website and API` builds, starts, and opens the site.
-- The public pages are under `server/EDUFIX.Api/wwwroot`; serving the repository root directly makes root-relative links such as `/login.html` return 404. Use the VS Code launch configuration or `dotnet run` from the API project to serve the site and API together. Do not use Live Server or the Netlify static site to validate login, registration, or private pages: they do not run the ASP.NET API.
+- The public pages are under `server/EDUFIX.Api/wwwroot`; serving the repository root directly makes root-relative links such as `/login.html` return 404. Use the VS Code launch configuration or `dotnet run` from the API project to serve the site and API together. Do not use static-file servers such as Live Server to validate login, registration, or private pages: they do not run the ASP.NET API.
 - The login form in `wwwroot/auth.js` posts to `/api/auth/login` and navigates to `/inicio` only after a successful response. Login also requires a reachable SQL Server with the schema applied and an existing account; when troubleshooting, inspect the request status and response in the browser's Network tools rather than treating a loaded page as proof that authentication is available.
 - There is currently no test project or dedicated lint command in the repository.
 - Preserve the dependency versions declared in `server/EDUFIX.Api/Edufix.Api.csproj` and `EDUFIX/EDUFIX.sqlproj`; do not upgrade or remove packages without a requirement.
-- `netlify.toml` publishes only `server/EDUFIX.Api/wwwroot`. Full application hosting is pending a compatible API and SQL Server hosting plan; do not describe the static Netlify site as fully functional.
 
 ## Architecture
 
@@ -25,7 +24,6 @@ The application uses ASP.NET Core on .NET 10, SQL Server, and plain HTML, CSS, a
 - Browser code is plain HTML, CSS, and JavaScript with no frontend build step. Page-specific scripts call same-origin `/api/...` endpoints using the authentication cookie; keep their request and response contracts aligned with the endpoint handlers.
 - `Data/UserStore.cs` and `Data/ShopStore.cs` implement SQL Server access. Their schema is maintained independently in `EDUFIX/EDUFIX.sqlproj` and `EDUFIX/Schema`. Application deployment does not publish database changes; review and apply schema changes separately.
 - `EDUFIX/Schema/Users.sql` defines user accounts and the unique normalized-email index. `EDUFIX/Schema/UserInventory.sql` defines inventory with a foreign key to `Users`; preserve keys, constraints, and referential integrity.
-- Netlify currently serves static browser assets only. The existing same-origin cookie authentication depends on the ASP.NET API, so keep frontend/API routing and cookie behavior in mind when a full-app host is selected.
 
 ## Repository-specific conventions
 

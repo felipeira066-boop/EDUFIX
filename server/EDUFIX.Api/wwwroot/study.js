@@ -19,6 +19,11 @@ if (subjectsGrid) {
         const top = document.createElement("div");
         top.className = "subject-card-top";
 
+        const subjectLink = document.createElement("a");
+        subjectLink.className = "subject-open";
+        subjectLink.href = `/jogo.html?materia=${encodeURIComponent(subject.id)}`;
+        subjectLink.setAttribute("aria-label", `Jogar aventura de ${subject.name}`);
+
         const icon = document.createElement("span");
         icon.className = "subject-icon";
         icon.setAttribute("aria-hidden", "true");
@@ -26,7 +31,8 @@ if (subjectsGrid) {
 
         const title = document.createElement("h3");
         title.textContent = subject.name;
-        top.append(icon, title);
+        subjectLink.append(icon, title);
+        top.append(subjectLink);
 
         const description = document.createElement("p");
         description.className = "subject-description";
@@ -46,9 +52,19 @@ if (subjectsGrid) {
 
         const status = document.createElement("p");
         status.className = "subject-status";
-        status.textContent = "Trilhas e exercícios interativos em preparação";
+        status.textContent = "Sua aventura está esperando";
 
-        card.append(top, description, topics, status);
+        const launchLink = document.createElement("a");
+        launchLink.className = "subject-launch";
+        launchLink.href = subjectLink.href;
+        launchLink.textContent = "Começar aventura";
+        launchLink.setAttribute("aria-label", `Começar aventura de ${subject.name}`);
+
+        card.append(top, description, topics, status, launchLink);
+        card.addEventListener("click", (event) => {
+            if (event.target.closest("a, details, button")) return;
+            window.location.assign(subjectLink.href);
+        });
         return card;
     };
 

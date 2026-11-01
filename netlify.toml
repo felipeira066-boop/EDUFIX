@@ -1,2 +1,0 @@
-[build]
-  publish = "server/EDUFIX.Api/wwwroot"

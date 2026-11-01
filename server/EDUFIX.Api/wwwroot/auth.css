@@ -142,6 +142,18 @@ h1 {
     text-align: left;
 }
 
+.auth-form [data-email-step],
+.auth-form [data-code-step] {
+    display: grid;
+    gap: 9px;
+}
+
+.auth-form [data-email-step][hidden],
+.auth-form [data-code-step][hidden],
+.auth-form [data-resend-button][hidden] {
+    display: none;
+}
+
 .auth-form label {
     margin-top: 7px;
     color: #394f46;
@@ -203,6 +215,16 @@ h1 {
 .submit-button:disabled {
     cursor: wait;
     opacity: .7;
+}
+
+.auth-form button.back-link {
+    justify-self: center;
+    padding: 8px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+    font-size: .88rem;
 }
 
 .form-message {

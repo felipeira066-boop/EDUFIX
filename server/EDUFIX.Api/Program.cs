@@ -12,6 +12,7 @@ builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 builder.Services.AddSingleton<UserStore>();
 builder.Services.AddSingleton<ShopStore>();
+builder.Services.AddSingleton<SmtpEmailSender>();
 builder.Services.AddSingleton<IPasswordHasher<UserAccount>, PasswordHasher<UserAccount>>();
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -72,7 +73,8 @@ app.Use(async (context, next) =>
     string.Equals(context.Request.Path.Value, "/inicio", StringComparison.OrdinalIgnoreCase) ||
     string.Equals(context.Request.Path.Value, "/plano.html", StringComparison.OrdinalIgnoreCase) ||
     string.Equals(context.Request.Path.Value, "/loja.html", StringComparison.OrdinalIgnoreCase) ||
-        string.Equals(context.Request.Path.Value, "/materias.html", StringComparison.OrdinalIgnoreCase))
+        string.Equals(context.Request.Path.Value, "/materias.html", StringComparison.OrdinalIgnoreCase) ||
+        string.Equals(context.Request.Path.Value, "/jogo.html", StringComparison.OrdinalIgnoreCase))
     {
         context.Response.Headers.CacheControl = "no-store";
     }
