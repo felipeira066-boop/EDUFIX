@@ -32,6 +32,8 @@ Abra `http://localhost:5500`. O login, cadastro e dados exigem acesso à interne
 
 O repositório inclui `netlify.toml`. Para publicar, conecte o repositório ao Netlify e faça o deploy sem comando de build; o diretório publicado é `site`. Depois do primeiro deploy, adicione o domínio final também à configuração de URLs do Supabase.
 
+Imagens e outros recursos visuais reutilizáveis ficam em `site/assets`; nas páginas, referencie-os pelo caminho publicado, por exemplo `/assets/share-image.png`.
+
 As páginas de matérias, loja, plano e jogo são arquivos estáticos e podem ser acessados por URL. O JavaScript redireciona visitantes sem sessão, enquanto o RLS do Supabase protege os dados. Não use a chave `service_role` no frontend.
 
 ## Recursos atuais
