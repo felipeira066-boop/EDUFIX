@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f8f1">
+    <meta name="description" content="Recupere o acesso à sua conta EDUFIX.">
+    <title>Recuperar senha — EDUFIX</title>
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="motion.css">
+    <script src="settings.js" defer></script>
+    <script src="password-reset.js" type="module"></script>
+    <script src="motion.js" defer></script>
+</head>
+<body class="auth-page">
+    <header class="auth-header">
+        <a class="brand" href="index.html" aria-label="EDUFIX — página inicial">
+            <span class="brand-mark" aria-hidden="true">✳</span>
+            <span>EDUFIX</span>
+        </a>
+        <a class="back-link" href="login.html">Voltar ao login</a>
+    </header>
+
+    <main class="auth-main">
+        <section class="auth-card" aria-labelledby="reset-title">
+            <span class="auth-illustration" aria-hidden="true">🔐</span>
+            <p class="eyebrow">Acesso à sua conta</p>
+            <h1 id="reset-title">Recuperar senha</h1>
+            <p class="auth-intro">Enviaremos um link para o e-mail cadastrado.</p>
+
+            <form class="auth-form" data-password-reset>
+                <div data-email-step>
+                    <label for="email">E-mail da conta</label>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        autocomplete="email"
+                        inputmode="email"
+                        maxlength="254"
+                        placeholder="voce@exemplo.com"
+                        required>
+                </div>
+
+                <p class="form-message" data-form-message role="alert" aria-live="assertive" hidden></p>
+                <button class="submit-button" type="submit" data-submit-button>Enviar link</button>
+            </form>
+
+            <section class="auth-switch" data-reset-success hidden>
+                Se o e-mail estiver cadastrado, enviaremos um link para redefinir a senha.
+                <a href="login.html">Voltar ao login</a>
+            </section>
+            <p class="auth-footnote">O link recebido por e-mail permite criar uma nova senha.</p>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#dff2d7">
+    <meta name="description" content="Explore uma aventura educativa com seu mascote no EDUFIX.">
+    <title>Sua aventura — EDUFIX</title>
+    <link rel="stylesheet" href="/study.css">
+    <link rel="stylesheet" href="/game.css">
+    <link rel="stylesheet" href="/motion.css">
+    <script src="/access.js" type="module"></script>
+    <script src="/game.js" defer></script>
+    <script src="/motion.js" defer></script>
+</head>
+<body class="game-page">
+    <header class="game-header">
+        <a class="study-brand" href="/materias.html" aria-label="Voltar para minhas matérias">
+            <span class="brand-mark" aria-hidden="true">✳</span>
+            <span>EDUFIX</span>
+        </a>
+        <a class="game-back-link" href="/materias.html">← Minhas matérias</a>
+    </header>
+
+    <main class="game-main">
+        <section class="game-heading">
+            <div>
+                <p class="study-kicker">SUA AVENTURA EDUFIX</p>
+                <h1 id="game-title">Carregando sua matéria...</h1>
+                <p id="game-subtitle">Prepare-se para explorar este mundo com seu mascote.</p>
+            </div>
+            <span class="game-mascot-badge" aria-hidden="true">🦉</span>
+        </section>
+
+        <section class="game-shell" aria-label="Jogo de aventura">
+            <div class="game-hud">
+                <span class="game-level-label" id="game-level-label"><span aria-hidden="true">🗺️</span> Fase 1 · Básico</span>
+                <span class="game-enemy-count" id="enemy-count">Mini ignorâncias: 0/5</span>
+                <p id="game-status" role="status" aria-live="polite">Ajude o mascote a sair da gaiola!</p>
+            </div>
+            <div class="game-stage">
+                <canvas id="adventure-canvas" width="960" height="500" aria-label="Jogo de plataforma: use W, A, S e D para se movimentar"></canvas>
+                <div class="intro-card" id="intro-card">
+                    <p class="intro-kicker">UMA NOVA AMIZADE</p>
+                    <h2 id="intro-title">Tem alguém precisando de ajuda!</h2>
+                    <p id="intro-copy">Seu mascote está preso na gaiola. Chegue perto e ajude a abrir a porta!</p>
+                    <button class="intro-button" id="open-cage-button" type="button">Abrir a gaiola</button>
+                </div>
+                <div class="game-toast" id="game-toast" aria-live="polite" hidden></div>
+                <section class="game-panel" id="difficulty-panel" role="dialog" aria-modal="true" aria-labelledby="difficulty-title" hidden>
+                    <p class="intro-kicker">ESCOLHA SEU DESAFIO</p>
+                    <h2 id="difficulty-title">Trilhas do mascote</h2>
+                    <p class="panel-copy">Avance pelas fases para desbloquear novos níveis.</p>
+                    <div class="difficulty-options">
+                        <button class="difficulty-option" type="button" data-difficulty="0">
+                            <span class="difficulty-icon" aria-hidden="true">🌱</span>
+                            <span><strong>Básico</strong><small>Comece sua aventura</small></span>
+                            <span class="difficulty-state">Disponível</span>
+                        </button>
+                        <button class="difficulty-option" type="button" data-difficulty="1">
+                            <span class="difficulty-icon" aria-hidden="true">🌿</span>
+                            <span><strong>Intermediário</strong><small>Desafios um pouco maiores</small></span>
+                            <span class="difficulty-state" data-difficulty-state="1">🔒 Bloqueado</span>
+                        </button>
+                        <button class="difficulty-option" type="button" data-difficulty="2">
+                            <span class="difficulty-icon" aria-hidden="true">🚀</span>
+                            <span><strong>Avançado</strong><small>Para quem quer ir mais longe</small></span>
+                            <span class="difficulty-state" data-difficulty-state="2">🔒 Bloqueado</span>
+                        </button>
+                    </div>
+                    <button class="panel-close" type="button" data-close-panel>Voltar ao jogo</button>
+                </section>
+                <section class="game-panel quiz-panel" id="quiz-panel" role="dialog" aria-modal="true" aria-labelledby="quiz-title" hidden>
+                    <p class="intro-kicker" id="quiz-kicker">BATALHA DE IDEIAS</p>
+                    <h2 id="quiz-title">Desafio</h2>
+                    <p class="quiz-progress" id="quiz-progress"></p>
+                    <p class="quiz-question" id="quiz-question"></p>
+                    <div class="quiz-answers" id="quiz-answers"></div>
+                    <p class="quiz-feedback" id="quiz-feedback" role="status" aria-live="polite"></p>
+                    <button class="intro-button quiz-next" id="quiz-next" type="button" hidden>Próxima pergunta</button>
+                </section>
+                <section class="game-panel phase-panel" id="phase-panel" role="dialog" aria-modal="true" aria-labelledby="phase-title" hidden>
+                    <p class="intro-kicker">FASE CONCLUÍDA</p>
+                    <h2 id="phase-title">A porta está aberta!</h2>
+                    <p class="panel-copy" id="phase-copy">Todos os mini ignorâncias foram vencidos. Pressione E para avançar.</p>
+                    <button class="intro-button" id="advance-phase-button" type="button">Avançar para a próxima fase (E)</button>
+                </section>
+            </div>
+            <div class="game-footer">
+                <p class="game-controls"><kbd>W</kbd><span>pular</span><kbd>A</kbd><span>esquerda</span><kbd>S</kbd><span>abaixar</span><kbd>D</kbd><span>direita</span></p>
+                <button class="mascot-level-button" id="open-progress-button" type="button" disabled>📈 Minha progressão</button>
+                <button class="mascot-level-button" id="open-difficulty-button" type="button">🦉 Níveis do mascote</button>
+                <p class="game-follow-copy"><span aria-hidden="true">🦉</span> Seu mascote vai acompanhar você!</p>
+            </div>
+        </section>
+
+        <div class="progress-backdrop" id="progress-backdrop" hidden></div>
+        <section class="game-panel progress-panel" id="progress-panel" role="dialog" aria-modal="true" aria-labelledby="progress-title" hidden>
+            <div class="progress-topline">
+                <p class="progress-kicker">SUA JORNADA DE HOJE</p>
+                <span class="progress-phase-badge" id="progress-phase-badge">Fase 1 · Básico</span>
+            </div>
+            <h2 id="progress-title">Sua progressão</h2>
+            <p class="progress-subtitle" id="progress-subtitle">Um passo de cada vez. Você está indo bem!</p>
+            <div class="progress-summary">
+                <span>Seu caminho</span>
+                <strong id="progress-count">0 de 5 etapas</strong>
+            </div>
+            <div
+                class="progress-track"
+                id="progress-track"
+                role="progressbar"
+                aria-label="Progresso da fase"
+                aria-valuemin="0"
+                aria-valuemax="5"
+                aria-valuenow="0">
+                <span id="progress-fill"></span>
+            </div>
+            <ol class="progress-steps" id="progress-steps" aria-label="Etapas da fase"></ol>
+            <button class="panel-close" type="button" data-close-panel>Voltar ao jogo</button>
+        </section>
+
+        <div class="touch-controls" aria-label="Controles do jogo">
+            <button type="button" data-game-key="a" aria-label="Mover para a esquerda">←</button>
+            <button type="button" data-game-key="w" aria-label="Pular">↑</button>
+            <button type="button" data-game-key="s" aria-label="Abaixar">↓</button>
+            <button type="button" data-game-key="d" aria-label="Mover para a direita">→</button>
+            <button type="button" data-game-action="interact" aria-label="Interagir">E</button>
+        </div>
+    </main>
+</body>
+</html>

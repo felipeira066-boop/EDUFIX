@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f7f8f1">
+    <meta name="description" content="Crie uma nova senha para sua conta EDUFIX.">
+    <title>Nova senha — EDUFIX</title>
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="motion.css">
+    <script src="settings.js" defer></script>
+    <script src="redefinir-senha.js" type="module"></script>
+    <script src="motion.js" defer></script>
+</head>
+<body class="auth-page">
+    <header class="auth-header">
+        <a class="brand" href="index.html" aria-label="EDUFIX — página inicial">
+            <span class="brand-mark" aria-hidden="true">✳</span>
+            <span>EDUFIX</span>
+        </a>
+        <a class="back-link" href="login.html">Voltar ao login</a>
+    </header>
+
+    <main class="auth-main">
+        <section class="auth-card" aria-labelledby="reset-title">
+            <span class="auth-illustration" aria-hidden="true">🔐</span>
+            <p class="eyebrow">Acesso à sua conta</p>
+            <h1 id="reset-title">Crie uma nova senha</h1>
+            <p class="auth-intro">Escolha uma senha segura para continuar sua jornada.</p>
+
+            <form class="auth-form" data-new-password hidden>
+                <label for="password">Nova senha</label>
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autocomplete="new-password"
+                    minlength="12"
+                    maxlength="128"
+                    placeholder="Pelo menos 12 caracteres"
+                    required>
+                <span class="field-hint">Use de 12 a 128 caracteres.</span>
+
+                <p class="form-message" data-form-message role="alert" aria-live="assertive" hidden></p>
+                <button class="submit-button" type="submit" data-submit-button>Salvar nova senha</button>
+            </form>
+
+            <p class="form-message" data-reset-error role="alert" aria-live="assertive" hidden></p>
+            <section class="auth-switch" data-reset-success hidden>
+                Senha alterada com sucesso. <a href="login.html">Entre na sua conta</a>
+            </section>
+        </section>
+    </main>
+</body>
+</html>
